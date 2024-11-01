@@ -1,0 +1,25 @@
+-- LocalScript
+
+local UserInputService = game:GetService("UserInputService")
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+
+local function moveForward()
+    if character and character:FindFirstChild("HumanoidRootPart") then
+        local direction = character.HumanoidRootPart.CFrame.LookVector
+        character.HumanoidRootPart.CFrame = character.HumanoidRootPart.CFrame + direction * 12 -- Teleport forward 12 units
+        print("Teleported forward by 16 units")
+    end
+end
+
+-- Input handling
+local function onInputBegan(input, gameProcessed)
+    if gameProcessed then return end
+    if input.UserInputType == Enum.UserInputType.MouseButton3 then -- Check for the middle mouse button
+        moveForward()
+    end
+end
+
+-- Connect input event
+UserInputService.InputBegan:Connect(onInputBegan)
